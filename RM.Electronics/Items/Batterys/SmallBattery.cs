@@ -16,12 +16,14 @@ namespace Eco.RM.Electronics.Items
         public int MaxChargeRate => (int)EMCustomsResolver.GetCustom(typeof(SmallBatteryItem), "MaxChargeRate");
         public int MaxDischargeRate => (int)EMCustomsResolver.GetCustom(typeof(SmallBatteryItem), "MaxDischargeRate");
         public int MaxCharge => (int)EMCustomsResolver.GetCustom(typeof(SmallBatteryItem), "MaxCharge");
+        public float CurrentCharge => (float)EMCustomsResolver.GetCustom(typeof(SmallBatteryItem), "Staring Charge");
         static SmallBatteryItem()
         {
             Dictionary<string, object> defaults = new Dictionary<string, object>();
-            defaults.Add("MaxCharge", 60);
-            defaults.Add("MaxChargeRate", 30);
-            defaults.Add("MaxDischargeRate", 20);
+            defaults.Add("Max Charge", 60);
+            defaults.Add("Max Charge Rate", 30);
+            defaults.Add("Max Discharge Rate", 20);
+            defaults.Add("Starting Charge", 0);
             EMCustomsResolver.AddDefaults(new CustomsModel(typeof(SmallBatteryItem), defaults));
         }
         public SmallBatteryItem() { }
@@ -46,9 +48,9 @@ namespace Eco.RM.Electronics.Items
                 new EMCraftable(typeof(SmallBatteryItem).Name)
             },
             BaseExperienceOnCraft = 3,
-            BaseLabor = 300,
+            BaseLabor = 500,
             LaborIsStatic = false,
-            BaseCraftTime = 20,
+            BaseCraftTime = 10,
             CraftTimeIsStatic = false,
             CraftingStation = typeof(MachinistTableItem).Name,
             RequiredSkillType = typeof(MechanicsSkill),
@@ -59,11 +61,11 @@ namespace Eco.RM.Electronics.Items
         static SmallBatteryRecipe() { EMRecipeResolver.AddDefaults(defaults); }
         public SmallBatteryRecipe()
         {
-            this.Recipes = EMRecipeResolver.Obj.ResolveRecipe(this);
-            this.LaborInCalories = EMRecipeResolver.Obj.ResolveLabor(this);
-            this.CraftMinutes = EMRecipeResolver.Obj.ResolveCraftMinutes(this);
-            this.ExperienceOnCraft = EMRecipeResolver.Obj.ResolveExperience(this);
-            this.Initialize(defaults.LocalizableName, GetType());
+            Recipes = EMRecipeResolver.Obj.ResolveRecipe(this);
+            LaborInCalories = EMRecipeResolver.Obj.ResolveLabor(this);
+            CraftMinutes = EMRecipeResolver.Obj.ResolveCraftMinutes(this);
+            ExperienceOnCraft = EMRecipeResolver.Obj.ResolveExperience(this);
+            Initialize(defaults.LocalizableName, GetType());
             CraftingComponent.AddRecipe(EMRecipeResolver.Obj.ResolveStation(this), this);
         }
     }

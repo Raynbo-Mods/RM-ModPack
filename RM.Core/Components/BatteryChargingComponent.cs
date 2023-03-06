@@ -9,7 +9,7 @@ namespace Eco.RM.Core.Components
     public partial class BatteryChargingComponent : WorldObjectComponent
     {
         public StatusElement Status { get; private set; }
-        public bool Enabled => Supply.Battery.CurrentCharge > 0 && Supply.Battery.MaxDischargeRate <= watts;
+        public bool Enabled => Supply.Battery.CurrentCharge > 0 && Supply.Battery.MaxDischargeRate <= watts && watts > 0;
         public int watts
         {
             get => watts;
@@ -32,7 +32,7 @@ namespace Eco.RM.Core.Components
             this.Parent.GetOrCreateComponent<PowerConsumptionComponent>().Initialize(watts + BasePower);
             this.Parent.GetOrCreateComponent<PowerGridComponent>().Initialize(Range, new ElectricPower());
             this.Status = this.Parent.GetOrCreateComponent<StatusComponent>().CreateStatusElement();
-            this.Status.SetStatusMessage(this.Enabled, new LocString($"Discharging Battery"), new LocString("No Charge In Battery"));
+            this.Status.SetStatusMessage(this.Enabled, new LocString($"Charging Battery"), new LocString("Battery full or invalid"));
         }
         /// <summary>override the power consumption</summary>
         public void OverrideWatts(int watts, int BasePower)
@@ -46,6 +46,7 @@ namespace Eco.RM.Core.Components
             base.Tick();
             if (Supply.Battery == null) return;
             if (Supply.Battery.MaxChargeRate > watts) watts = Supply.Battery.MaxChargeRate;
+            if (watts <= 0) return;
             if (Supply.Battery.CurrentCharge > 0) Supply.Battery.CurrentCharge -= wh;
             if (Supply.Battery.CurrentCharge < 0) Supply.Battery.CurrentCharge = 0;
         }

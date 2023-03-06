@@ -12,7 +12,6 @@ namespace Eco.RM.Core.Items
     public partial class BatteryItem : ToolItem
     {
         public override LocString DisplayDescription => Localizer.DoStr("Stores energy for later use");
-        public bool OverrideThis { get; set; }
         /// <summary>The max the battery can hold in watt hours</summary>
         public int MaxCharge { get; set; }
         /// <summary>The max power input in watts the battery can take in</summary>
