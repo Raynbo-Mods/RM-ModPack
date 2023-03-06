@@ -5,17 +5,18 @@ using Eco.Gameplay.Skills;
 using Eco.Mods.TechTree;
 using Eco.RM.Core.Items;
 using Eco.Shared.Localization;
+using Eco.Shared.Serialization;
 using System.ComponentModel;
 
 namespace Eco.RM.Electronics.Items
 {
-    [Category("Batteries")]
+    [Serialized, Category("Batteries"), LocDisplayName("Small Battery"), Weight(300)]
     public class SmallBatteryItem : BatteryItem, IConfigurableCustoms
     {
         public int MaxChargeRate => (int)EMCustomsResolver.GetCustom(typeof(SmallBatteryItem), "MaxChargeRate");
         public int MaxDischargeRate => (int)EMCustomsResolver.GetCustom(typeof(SmallBatteryItem), "MaxDischargeRate");
         public int MaxCharge => (int)EMCustomsResolver.GetCustom(typeof(SmallBatteryItem), "MaxCharge");
-        public SmallBatteryItem()
+        static SmallBatteryItem()
         {
             Dictionary<string, object> defaults = new Dictionary<string, object>();
             defaults.Add("MaxCharge", 60);
@@ -23,6 +24,7 @@ namespace Eco.RM.Electronics.Items
             defaults.Add("MaxDischargeRate", 20);
             EMCustomsResolver.AddDefaults(new CustomsModel(typeof(SmallBatteryItem), defaults));
         }
+        public SmallBatteryItem() { }
     }
     [RequiresSkill(typeof(MechanicsSkill), 4)]
     public class SmallBatteryRecipe : RecipeFamily, IConfigurableRecipe
@@ -31,24 +33,24 @@ namespace Eco.RM.Electronics.Items
         {
             ModelType = typeof(SmallBatteryRecipe).Name,
             Assembly = typeof(SmallBatteryRecipe).AssemblyQualifiedName,
-            HiddenName = "Small Battery",
-            LocalizableName = Localizer.DoStr("Small Battery"),
+            HiddenName = "Small Battery Recipe",
+            LocalizableName = Localizer.DoStr("Small Battery Recipe"),
             IngredientList = new()
             {
-                new EMIngredient("CopperPlateItem", false, 10, true),
-                new EMIngredient("IronPlateItem", false, 10, true),
-                new EMIngredient("CoalItem", false, 60)
+                new EMIngredient(typeof(CopperPlateItem).Name, false, 10, true),
+                new EMIngredient(typeof(IronPlateItem).Name, false, 10, true),
+                new EMIngredient(typeof(CoalItem).Name, false, 60)
             },
             ProductList = new()
             {
-                new EMCraftable("SmallBatteryItem")
+                new EMCraftable(typeof(SmallBatteryItem).Name)
             },
             BaseExperienceOnCraft = 3,
             BaseLabor = 300,
             LaborIsStatic = false,
             BaseCraftTime = 20,
             CraftTimeIsStatic = false,
-            CraftingStation = "MachinistTableObject",
+            CraftingStation = typeof(MachinistTableItem).Name,
             RequiredSkillType = typeof(MechanicsSkill),
             RequiredSkillLevel = 4,
             IngredientImprovementTalents = typeof(MechanicsLavishResourcesTalent),

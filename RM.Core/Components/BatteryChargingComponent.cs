@@ -24,13 +24,13 @@ namespace Eco.RM.Core.Components
         public float wh => watts / ServiceHolder<IWorldObjectManager>.Obj.TickDeltaTime / 3600;
         /// <summary>the battery supply component to pull from.</summary>
         public BatterySupplyComponent Supply { get; private set; }
-        BatteryChargingComponent(int watts, int BasePower)
+        BatteryChargingComponent(int watts, int BasePower, int Range)
         {
             this.watts = watts;
             this.BaseWatts = BasePower;
             this.Supply = this.Parent.GetOrCreateComponent<BatterySupplyComponent>();
             this.Parent.GetOrCreateComponent<PowerConsumptionComponent>().Initialize(watts + BasePower);
-            this.Parent.GetOrCreateComponent<PowerGridComponent>().Initialize(20, new ElectricPower());
+            this.Parent.GetOrCreateComponent<PowerGridComponent>().Initialize(Range, new ElectricPower());
             this.Status = this.Parent.GetOrCreateComponent<StatusComponent>().CreateStatusElement();
             this.Status.SetStatusMessage(this.Enabled, new LocString($"Discharging Battery"), new LocString("No Charge In Battery"));
         }

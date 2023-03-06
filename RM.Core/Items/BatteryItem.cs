@@ -9,8 +9,9 @@ namespace Eco.RM.Core.Items
 {
     /// <summary>Base battery item used to make new battery types</summary>
     [Serialized, LocDisplayName("BaseBatteryItem"), Category("Hidden"), Tag("Batteries")]
-    public partial class BatteryItem : Item
+    public partial class BatteryItem : ToolItem
     {
+        public override LocString DisplayDescription => Localizer.DoStr("Stores energy for later use");
         public bool OverrideThis { get; set; }
         /// <summary>The max the battery can hold in watt hours</summary>
         public int MaxCharge { get; set; }
