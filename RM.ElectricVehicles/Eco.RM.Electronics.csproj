@@ -11,4 +11,14 @@
     <PackageReference Include="JetBrains.Annotations" Version="2022.3.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\RM.Core\Eco.RM.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Eco.EM.Framework">
+      <HintPath>..\..\EM-Framework-PR\bin\9.6\Framework\net7.0\Eco.EM.Framework.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

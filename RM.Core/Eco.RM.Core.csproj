@@ -13,7 +13,7 @@
 
   <ItemGroup>
     <Reference Include="Eco.EM.Framework">
-      <HintPath>..\..\..\source\repos\EM-Framework\bin\9.6\Framework\net7.0\Eco.EM.Framework.dll</HintPath>
+      <HintPath>..\..\EM-Framework-PR\bin\9.6\Framework\net7.0\Eco.EM.Framework.dll</HintPath>
     </Reference>
   </ItemGroup>
 
