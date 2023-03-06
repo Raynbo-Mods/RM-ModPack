@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <PackageReference Include="Eco.ReferenceAssemblies" Version="0.9.7.9-beta-release-451" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3-beta1" />
   </ItemGroup>
 
   <ItemGroup>
