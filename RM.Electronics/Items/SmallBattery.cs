@@ -1,5 +1,4 @@
-﻿using Eco.EM.Framework.Console;
-using Eco.EM.Framework.Resolvers;
+﻿using Eco.EM.Framework.Resolvers;
 using Eco.Gameplay.Components;
 using Eco.Gameplay.Items;
 using Eco.Gameplay.Skills;
@@ -55,7 +54,7 @@ namespace Eco.RM.Electronics.Items
             IngredientImprovementTalents = typeof(MechanicsLavishResourcesTalent),
             SpeedImprovementTalents = new Type[] { typeof(MechanicsParallelSpeedTalent), typeof(MechanicsFocusedSpeedTalent) },
         };
-        static SmallBatteryRecipe() { EMRecipeResolver.AddDefaults(defaults); ConsoleWriter.TextWriter(ConsoleColor.Cyan, "loading"); }
+        static SmallBatteryRecipe() { EMRecipeResolver.AddDefaults(defaults); }
         public SmallBatteryRecipe()
         {
             this.Recipes = EMRecipeResolver.Obj.ResolveRecipe(this);
@@ -64,7 +63,6 @@ namespace Eco.RM.Electronics.Items
             this.ExperienceOnCraft = EMRecipeResolver.Obj.ResolveExperience(this);
             this.Initialize(defaults.LocalizableName, GetType());
             CraftingComponent.AddRecipe(EMRecipeResolver.Obj.ResolveStation(this), this);
-            ConsoleWriter.TextWriter(ConsoleColor.Cyan, "loaded");
         }
     }
 }
