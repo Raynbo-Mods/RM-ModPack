@@ -1,4 +1,5 @@
-﻿using Eco.Core.Items;
+﻿using Eco.Core.Controller;
+using Eco.Core.Items;
 using Eco.Core.Utils;
 using Eco.Gameplay.Items;
 using Eco.Shared.Localization;
@@ -8,7 +9,7 @@ using System.ComponentModel;
 namespace Eco.RM.Core.Items
 {
     /// <summary>Base battery item used to make new battery types</summary>
-    [Serialized, LocDisplayName("BaseBatteryItem"), Category("Hidden"), Tag("Batteries"), MaxStackSize(1)]
+    [Serialized, LocDisplayName("BaseBatteryItem"), Category("Hidden"), MaxStackSize(1)]
     public abstract partial class BatteryItem : DecayingItem
     {
         public override bool ScrapOnDeath => true;
@@ -16,14 +17,14 @@ namespace Eco.RM.Core.Items
         public abstract override int ScrapOutput { get; }
         public override LocString DisplayDescription => Localizer.DoStr("Stores energy for later use");
         /// <summary>The max the battery can hold in watt hours</summary>
-        public int MaxCharge { get; set; }
+        [SyncToView] public int MaxCharge { get; set; }
         /// <summary>The max power input in watts the battery can take in</summary>
         public int MaxChargeRate { get; set; }
         /// <summary>The batterys max output in watts</summary>
         public int MaxDischargeRate { get; set; }
         [Serialized] private float currentCharge = 0;
         /// <summary>The current charge in watt hours the batter is holding</summary>
-        public float CurrentCharge
+        [SyncToView] public float CurrentCharge
         {
             get => this.currentCharge;
             set

@@ -12,12 +12,11 @@ using System.ComponentModel;
 
 namespace Eco.RM.Electronics.Items
 {
-    [Serialized, Category("Batteries"), Tag("Decays"), LocDisplayName("Carbon Battery"), Weight(300)]
+    [Serialized, Category("Batteries"), LocDisplayName("Carbon Battery"), Weight(300)]
     public class CarbonBatteryItem : BatteryItem, IConfigurableCustoms
     {
         public override int ScrapOutput => 1;
-        //protected override int BaseLifespan => (int)TimeUtil.HoursToSeconds(48);
-        protected override int BaseLifespan => 20;
+        protected override int BaseLifespan => (int)TimeUtil.HoursToSeconds(48); //2 days
         public int MaxChargeRate => (int)EMCustomsResolver.GetCustom(typeof(CarbonBatteryItem), "Max Charge Rate");
         public int MaxDischargeRate => (int)EMCustomsResolver.GetCustom(typeof(CarbonBatteryItem), "Max Discharge Rate");
         public int MaxCharge => (int)EMCustomsResolver.GetCustom(typeof(CarbonBatteryItem), "Max Charge");
@@ -44,13 +43,13 @@ namespace Eco.RM.Electronics.Items
             LocalizableName = Localizer.DoStr("Carbon Battery"),
             IngredientList = new()
             {
-                new EMIngredient(typeof(CopperPlateItem).Name, false, 10, true),
-                new EMIngredient(typeof(IronPlateItem).Name, false, 10, true),
-                new EMIngredient(typeof(CoalItem).Name, false, 120)
+                new EMIngredient(typeof(CopperPlateItem).Name, false, 3, true),
+                new EMIngredient(typeof(IronPlateItem).Name, false, 3, true),
+                new EMIngredient(typeof(CoalItem).Name, false, 15)
             },
             ProductList = new()
             {
-                new EMCraftable(typeof(SmallBatteryItem).Name)
+                new EMCraftable(typeof(CarbonBatteryItem).Name)
             },
             BaseExperienceOnCraft = 1,
             BaseLabor = 300,

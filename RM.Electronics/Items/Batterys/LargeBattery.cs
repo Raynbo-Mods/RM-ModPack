@@ -12,12 +12,11 @@ using System.ComponentModel;
 
 namespace Eco.RM.Electronics.Items
 {
-    [Serialized, Category("Batteries"), Tag("Decays"), LocDisplayName("Large Battery"), Weight(300)]
+    [Serialized, Category("Batteries"), LocDisplayName("Large Battery"), Weight(300)]
     public class LargeBatteryItem : BatteryItem, IConfigurableCustoms
     {
         public override int ScrapOutput => 4;
-        //protected override int BaseLifespan => (int)TimeUtil.HoursToSeconds(168);
-        protected override int BaseLifespan => 20;
+        protected override int BaseLifespan => (int)TimeUtil.HoursToSeconds(168);   //one week
         public int MaxChargeRate => (int)EMCustomsResolver.GetCustom(typeof(LargeBatteryItem), "Max Charge Rate");
         public int MaxDischargeRate => (int)EMCustomsResolver.GetCustom(typeof(LargeBatteryItem), "Max Discharge Rate");
         public int MaxCharge => (int)EMCustomsResolver.GetCustom(typeof(LargeBatteryItem), "Max Charge");

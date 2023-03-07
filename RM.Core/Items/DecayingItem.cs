@@ -15,7 +15,7 @@ namespace Eco.RM.Core.Items
     public abstract partial class DecayingItem : DurabilityItem, IStackableMergable
     {
         ImmutableCountdown decayTime;
-        [Serialized, SyncToView(Flags = Shared.View.SyncFlags.MustRequest)]
+        [Serialized, SyncToView]
         public ImmutableCountdown DecayTime
         {
             get => this.decayTime;

@@ -4,6 +4,7 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <BaseOutputPath>C:\Users\Shadow\Documents\RM-ModPack\RM Manufacturing</BaseOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,5 +21,9 @@
     <Folder Include="Items\" />
     <Folder Include="Objects\" />
   </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="cd &quot;C:\Users\Shadow\Documents\RM-ModPack\RM Manufacturing\Debug\net7.0&quot;&#xD;&#xA;move Eco.RM.Core.dll &quot;C:\Users\Shadow\Documents\RM-ModPack\RM Manufacturing&quot;&#xD;&#xA;del * /Q&#xD;&#xA;cd..&#xD;&#xA;rmdir net7.0&#xD;&#xA;cd..&#xD;&#xA;rmdir Debug" />
+  </Target>
 
 </Project>
