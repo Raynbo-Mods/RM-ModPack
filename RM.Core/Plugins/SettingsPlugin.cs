@@ -26,7 +26,10 @@ namespace Eco.RM.Core.Plugins
         public void OnEditObjectChanged(object o, string param) => this.SaveConfig();
         public string GetStatus() => "Settings Loaded";
 
-        public void Initialize(TimedTask timer) { }
+        public void Initialize(TimedTask timer)
+        {
+            config.SaveAsync();
+        }
         public override string ToString()
         {
             return Localizer.DoStr("RM Settings");

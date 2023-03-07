@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="C5" Version="2.5.3" />
     <PackageReference Include="Eco.ReferenceAssemblies" Version="0.9.7.9-beta-release-451" />
   </ItemGroup>
 

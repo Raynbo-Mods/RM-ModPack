@@ -8,9 +8,12 @@ using System.ComponentModel;
 namespace Eco.RM.Core.Items
 {
     /// <summary>Base battery item used to make new battery types</summary>
-    [Serialized, LocDisplayName("BaseBatteryItem"), Category("Hidden"), Tag("Batteries")]
-    public partial class BatteryItem : ToolItem
+    [Serialized, LocDisplayName("BaseBatteryItem"), Category("Hidden"), Tag("Batteries"), MaxStackSize(1)]
+    public abstract partial class BatteryItem : DecayingItem
     {
+        public override bool ScrapOnDeath => true;
+        protected abstract override int BaseLifespan { get; }
+        public abstract override int ScrapOutput { get; }
         public override LocString DisplayDescription => Localizer.DoStr("Stores energy for later use");
         /// <summary>The max the battery can hold in watt hours</summary>
         public int MaxCharge { get; set; }

@@ -4,16 +4,28 @@ namespace Eco.RM.Core.Configs
 {
     public class DecayConfig
     {
-        [LocDescription("Battery Items Decay Enabled")]
+        [LocDescription("Items Decay Enabled")]
+        public bool ItemDecayEnabled { get; set; } = true;
+
+        [LocDescription("Items Decay Multiplyer")]
+        public float ItemDecayMultiplyer { get; set; } = 1;
+
+        [LocDescription("Object Decay Enabled")]
+        public bool ObjectDecayEnabled { get; set; } = true;
+
+        [LocDescription("Object Decay Multiplyer")]
+        public float ObjectDecayMultiplyer { get; set; } = 1;
+
+        [LocDescription("Battery Item Power Decay Enabled")]
         public bool BatteryItemDecayEnabled { get; set; } = true;
 
-        [LocDescription("Battery Items Decay Multiplyer")]
+        [LocDescription("Battery Item Power Decay Multiplyer")]
         public float BatteryItemDecayMultiplyer { get; set; } = 1;
 
-        [LocDescription("Battery Objects Decay Enabled")]
+        [LocDescription("Battery Object Power Decay Enabled")]
         public bool BatteryObjectDecayEnabled { get; set; } = true;
 
-        [LocDescription("Battery Objects Decay Multiplyer")]
+        [LocDescription("Battery Object Power Decay Multiplyer")]
         public float BatteryObjectDecayMultiplyer { get; set; } = 1;
     }
 }

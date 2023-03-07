@@ -1,55 +1,43 @@
 ﻿using Eco.Core.Plugins;
 using Eco.Core.Plugins.Interfaces;
 using Eco.Core.Utils;
-using Eco.Shared.Localization;
-using Eco.Shared.Utils;
+using Eco.Core.Utils.Threading;
 using Eco.RM.Core.Configs;
-using Eco.Gameplay.Items;
-using Eco.Gameplay.Objects;
-using Eco.Gameplay.Components;
+using Eco.Shared.Localization;
+using Eco.RM.Core.Managers;
+using Eco.Shared.Utils;
 
 namespace Eco.RM.Core.Plugins
 {
-    [LocDisplayName("RM Decay Plugin")]
-    public class DecayPlugin : Singleton<DecayPlugin>, IInitializablePlugin, IModKitPlugin, IConfigurablePlugin
+    [LocDisplayName(nameof(DecayPlugin))]
+    public class DecayPlugin : Singleton<DecayPlugin>, IModKitPlugin, IThreadedPlugin, IInitializablePlugin, IShutdownablePlugin, IConfigurablePlugin
     {
-
         private readonly PluginConfig<DecayConfig> config;
-        public DecayPlugin()
-        {
-            this.config = new PluginConfig<DecayConfig>("RM-Decay");
-        }
-
         public IPluginConfig PluginConfig => this.config;
         public DecayConfig Config => this.config.Config;
         public ThreadSafeAction<object, string> ParamChanged { get; set; } = new ThreadSafeAction<object, string>();
-
         public object GetEditObject() => this.config.Config;
         public void OnEditObjectChanged(object o, string param) => this.SaveConfig();
-        public string GetStatus() => "Settings Loaded";
 
-        public void Initialize(TimedTask timer) { }
-        public override string ToString() => Localizer.DoStr("RM Settings");
+        private readonly EventDrivenWorker tickWorker;
 
-        public string GetCategory() => "Raynbo Mods";
-
-        public void Tick()
+        public void Initialize(TimedTask timer)
         {
-            if (Config.BatteryItemDecayEnabled) TickBatteryItems();
-            if (Config.BatteryObjectDecayEnabled) TickBatteryObjects();
+            config.SaveAsync();
+            var decayManager = new DecayManager();
+            decayManager.Initialize();
         }
 
-        private void TickBatteryItems()
+        public DecayPlugin()
         {
-            WorldObjectManager.ForEach(x =>
-            {
-                x.GetComponent<StorageComponent>()?.Inventory.NonEmptyStacks.Where(x => x.TagNames().Contains("Batteries"));
-            });
+            this.tickWorker = new EventDrivenWorker(DecayManager.Reset, this.Tick);
+            this.config = new PluginConfig<DecayConfig>("RM-Decay");
         }
-
-        private void TickBatteryObjects()
-        {
-
-        }
+        public string GetCategory() => Localizer.DoStr("Raynbo Mods");
+        public string GetStatus() => DecayManager.Obj.GetStatus();
+        public override string ToString() => Localizer.DoStr("RM Decay");
+        public void Run() => this.tickWorker.Start(ThreadPriorityTaskFactory.BelowNormal);
+        public Task ShutdownAsync() => this.tickWorker.ShutdownAsync();
+        public int Tick() => DecayManager.Obj.Tick();
     }
 }

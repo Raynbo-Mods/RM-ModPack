@@ -1,4 +1,5 @@
-﻿using Eco.EM.Framework.Resolvers;
+﻿using Eco.Core.Items;
+using Eco.EM.Framework.Resolvers;
 using Eco.Gameplay.Components;
 using Eco.Gameplay.Items;
 using Eco.Gameplay.Skills;
@@ -6,13 +7,17 @@ using Eco.Mods.TechTree;
 using Eco.RM.Core.Items;
 using Eco.Shared.Localization;
 using Eco.Shared.Serialization;
+using Eco.Shared.Utils;
 using System.ComponentModel;
 
 namespace Eco.RM.Electronics.Items
 {
-    [Serialized, Category("Batteries"), LocDisplayName("Large Battery"), Weight(300)]
+    [Serialized, Category("Batteries"), Tag("Decays"), LocDisplayName("Large Battery"), Weight(300)]
     public class LargeBatteryItem : BatteryItem, IConfigurableCustoms
     {
+        public override int ScrapOutput => 4;
+        //protected override int BaseLifespan => (int)TimeUtil.HoursToSeconds(168);
+        protected override int BaseLifespan => 20;
         public int MaxChargeRate => (int)EMCustomsResolver.GetCustom(typeof(LargeBatteryItem), "Max Charge Rate");
         public int MaxDischargeRate => (int)EMCustomsResolver.GetCustom(typeof(LargeBatteryItem), "Max Discharge Rate");
         public int MaxCharge => (int)EMCustomsResolver.GetCustom(typeof(LargeBatteryItem), "Max Charge");
