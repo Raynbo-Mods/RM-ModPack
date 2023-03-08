@@ -12,6 +12,7 @@ using Eco.RM.Core.Plugins;
 
 namespace Eco.RM.Core.Items
 {
+    [Serialized]
     public abstract partial class DecayingItem : DurabilityItem, IStackableMergable
     {
         ImmutableCountdown decayTime;

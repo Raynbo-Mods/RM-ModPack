@@ -12,17 +12,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RM.Core\Eco.RM.Core.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Reference Include="Eco.EM.Framework">
       <HintPath>..\..\EM-Framework-PR\bin\9.6\Framework\net7.0\Eco.EM.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Eco.RM.Core">
+      <HintPath>..\..\..\..\Documents\RM-ModPack\RM Core\Eco.RM.Core.dll</HintPath>
     </Reference>
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="cd &quot;C:\Users\Shadow\Documents\RM-ModPack\RM Electronics\Debug\net7.0&quot;&#xD;&#xA;move Eco.RM.Core.dll &quot;C:\Users\Shadow\Documents\RM-ModPack\RM Electronics&quot;&#xD;&#xA;del * /Q&#xD;&#xA;cd..&#xD;&#xA;rmdir net7.0&#xD;&#xA;cd..&#xD;&#xA;rmdir Debug" />
+    <Exec Command="cd &quot;C:\Users\Shadow\Documents\RM-ModPack\RM Electronics\Debug\net7.0&quot;&#xD;&#xA;move Eco.RM.Electronics.dll &quot;C:\Users\Shadow\Documents\RM-ModPack\RM Electronics&quot;&#xD;&#xA;del * /Q&#xD;&#xA;cd..&#xD;&#xA;rmdir net7.0&#xD;&#xA;cd..&#xD;&#xA;rmdir Debug" />
   </Target>
 
 </Project>

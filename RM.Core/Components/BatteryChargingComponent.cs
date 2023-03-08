@@ -5,11 +5,13 @@ using Eco.Gameplay.Players;
 using Eco.Shared.IoC;
 using Eco.Shared.Localization;
 using Eco.Shared.Networking;
+using Eco.Shared.Serialization;
 
 namespace Eco.RM.Core.Components
 {
     /// <summary>Discharges from a battery in a battery supply component that is made automaticly.</summary>
-    public partial class BatteryChargingComponent : WorldObjectComponent
+    [LocDisplayName("Battery Charger")]
+    public class BatteryChargingComponent : WorldObjectComponent
     {
         public StatusElement Status { get; private set; }
         public bool Enabled => Supply.Battery.CurrentCharge > 0 && Supply.Battery.MaxDischargeRate <= watts && watts > 0;
@@ -27,7 +29,7 @@ namespace Eco.RM.Core.Components
         public float wh => watts / ServiceHolder<IWorldObjectManager>.Obj.TickDeltaTime / 3600;
         /// <summary>the battery supply component to pull from.</summary>
         public BatterySupplyComponent Supply { get; private set; }
-        BatteryChargingComponent(int watts, int BasePower, int Range)
+        public BatteryChargingComponent(int watts, int BasePower, int Range)
         {
             this.watts = watts;
             this.BaseWatts = BasePower;
@@ -44,9 +46,8 @@ namespace Eco.RM.Core.Components
             this.BaseWatts = BasePower;
             this.Parent.GetOrCreateComponent<PowerConsumptionComponent>().OverridePowerConsumption(watts + BasePower);
         }
-        public override void Tick()
+        public void Tick()
         {
-            base.Tick();
             if (Supply.Battery == null) return;
             if (Supply.Battery.MaxChargeRate > watts) watts = Supply.Battery.MaxChargeRate;
             if (watts <= 0) return;

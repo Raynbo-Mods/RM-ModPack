@@ -11,7 +11,8 @@ using static Eco.Gameplay.Items.AuthorizationInventory;
 namespace Eco.RM.Core.Components
 {
     /// <summary>holds the battery storage for use in varius other components</summary>
-    public partial class BatterySupplyComponent : StorageComponent
+    [LocDisplayName("Battery Supply")]
+    public class BatterySupplyComponent : StorageComponent
     {
 
         /// <summary>The inventory to hold batteries</summary>
@@ -20,7 +21,7 @@ namespace Eco.RM.Core.Components
         public bool Enabled => Inventory.NonEmptyStacks.Any();
         /// <summary>The battery currently inserted. returns null if none.
         public BatteryItem? Battery => GetBattery();
-        BatterySupplyComponent()
+        public BatterySupplyComponent()
         {
             this.Status = this.Parent.GetOrCreateComponent<StatusComponent>().CreateStatusElement();
             this.Status.SetStatusMessage(this.Enabled, new LocString("Battery Inserted"), new LocString("Missing Battery"));
