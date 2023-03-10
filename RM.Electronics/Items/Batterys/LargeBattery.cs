@@ -12,7 +12,7 @@ using System.ComponentModel;
 
 namespace Eco.RM.Electronics.Items
 {
-    [Serialized, Category("Batteries"), LocDisplayName("Large Battery"), Weight(300)]
+    [Serialized, Category("Batteries"), LocDisplayName("Large Battery"), Weight(300), Tag("Battery")]
     public class LargeBatteryItem : BatteryItem, IConfigurableCustoms
     {
         public override int ScrapOutput => 4;
