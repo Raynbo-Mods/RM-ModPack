@@ -130,3 +130,4 @@ namespace Eco.RM.HoverBikes
             CraftingComponent.AddRecipe(AutoSingleton<EMRecipeResolver>.Obj.ResolveStation(this), this);
         }
     }
+}

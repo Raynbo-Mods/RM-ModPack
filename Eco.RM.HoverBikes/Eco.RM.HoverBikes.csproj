@@ -7,10 +7,6 @@
     <BaseOutputPath>C:\Users\Shadow\Documents\RM-ModPack\RM HoverBikes</BaseOutputPath>
   </PropertyGroup>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="cd &quot;C:\Users\Shadow\Documents\RM-ModPack\RM HoverBikes\Debug\net7.0&quot;&#xD;&#xA;move Eco.RM.HoverBikes.dll &quot;C:\Users\Shadow\Documents\RM-ModPack\RM HoverBikes&quot;&#xD;&#xA;del * /Q&#xD;&#xA;cd..&#xD;&#xA;rmdir net7.0&#xD;&#xA;cd..&#xD;&#xA;rmdir Debug" />
-  </Target>
-
   <ItemGroup>
     <PackageReference Include="Eco.ReferenceAssemblies" Version="0.9.7.9-beta-release-451" />
   </ItemGroup>
@@ -20,5 +16,9 @@
       <HintPath>..\..\EM-Framework-PR\bin\9.6\Framework\net7.0\Eco.EM.Framework.dll</HintPath>
     </Reference>
   </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="cd &quot;C:\Users\Shadow\Documents\RM-ModPack\RM HoverBikes\Debug\net7.0&quot;&#xD;&#xA;move Eco.RM.HoverBikes.dll &quot;C:\Users\Shadow\Documents\RM-ModPack\RM HoverBikes&quot;&#xD;&#xA;del * /Q&#xD;&#xA;cd..&#xD;&#xA;rmdir net7.0&#xD;&#xA;cd..&#xD;&#xA;rmdir Debug" />
+  </Target>
 
 </Project>
